@@ -14,6 +14,7 @@ app.use(methodOverride('_method'));
 
 var todoSchema = new mongoose.Schema({
   text: String,
+  description:String
 });
 
 var Todo = mongoose.model("Todo", todoSchema);
@@ -27,55 +28,60 @@ app.get("/todos", function(req, res){
     if(err){
       console.log(err);
     } else {
-      res.render("index", {todos: todos}); 
+      if(req.xhr) {
+        res.json(todos);
+      } else {
+        res.render("index", {todos: todos}); 
+      }
     }
   })
 });
 
-app.get("/todos/new", function(req, res){
- res.render("new"); 
-});
+// app.get("/todos/new", function(req, res){
+//  res.render("new"); 
+// });
 
 app.post("/todos", function(req, res){
- req.body.todo.text = req.sanitize(req.body.todo.text);
- var formData = req.body.todo;
+ // req.body.todo.text = req.sanitize(req.body.todo.text);
+ // var text = req.body.text;
+ // var description = req.body.description;
+ var formData =req.body.todo
  Todo.create(formData, function(err, newTodo){
     if(err){
       res.render("new");
     } else {
-        res.redirect("/todos");
+      res.json(newTodo);
     }
   });
 });
 
-app.get("/todos/:id/edit", function(req, res){
- Todo.findById(req.params.id, function(err, todo){
-   if(err){
-     console.log(err);
-     res.redirect("/")
-   } else {
-      res.render("edit", {todo: todo});
-   }
- });
-});
+// app.get("/todos/:id/edit", function(req, res){
+//  Todo.findById(req.params.id, function(err, todo){
+//    if(err){
+//      console.log(err);
+//      res.redirect("/")
+//    } else {
+//       res.render("edit", {todo: todo});
+//    }
+//  });
+// });
 
 app.put("/todos/:id", function(req, res){
- Todo.findByIdAndUpdate(req.params.id, req.body.todo, function(err, todo){
+ Todo.findByIdAndUpdate(req.params.id, req.body.todo, {new: true}, function(err, todo){
    if(err){
      console.log(err);
    } else {
-      res.redirect('/');
+      res.json(todo);
    }
  });
 });
 
 app.delete("/todos/:id", function(req, res){
- Todo.findById(req.params.id, function(err, todo){
+ Todo.findByIdAndRemove(req.params.id, function(err, todo){
    if(err){
      console.log(err);
    } else {
-      todo.remove();
-      res.redirect("/todos");
+      res.json(todo);
    }
  }); 
 });
@@ -84,8 +90,3 @@ app.delete("/todos/:id", function(req, res){
 app.listen(3000, function() {
   console.log('Server running on port 3000');
 });
-
-// // Uncomment the three lines of code below and comment out or remove lines 84 - 86 if using cloud9
-// app.listen(process.env.PORT, process.env.IP, function(){
-//     console.log("The server has started!");
-// });

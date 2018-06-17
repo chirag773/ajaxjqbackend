@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Ian",
+  "author": "chirag",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.14.1",
@@ -14,6 +14,7 @@
     "express": "^4.13.3",
     "express-sanitizer": "^1.0.1",
     "method-override": "^2.3.5",
-    "mongoose": "^4.2.3"
+    "mongoose": "^4.2.3",
+    "nodemon": "^1.17.5"
   }
 }

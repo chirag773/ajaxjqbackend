@@ -12,8 +12,8 @@ app.use(expressSanitizer());
 app.set("view engine", "ejs");
 app.use(methodOverride('_method'));
 
-// var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080
-// var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
 
 var todoSchema = new mongoose.Schema({
   text: String,
@@ -95,6 +95,6 @@ app.delete("/todos/:id", function(req, res){
 // });
 
  
-server.listen(8080, '127.0.0.1', function () {
-  console.log( "Listening on  8080 , port  127.0.0.1")
+server.listen(server_port, server_ip_address, function () {
+  console.log( "Listening on " + server_ip_address + ", port " + server_port )
 });

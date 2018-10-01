@@ -1,10 +1,11 @@
 # Setup Instructions
 
-- Paste the following into your terminal - `git clone https://github.com/nax3t/ajax-jquery-tutorial.git`
+- Paste the following into your terminal - `git clone https://github.com/chirag773/ajaxjqbackend.git`
 - Now `cd` into `ajaxjqbackend` and run `npm install`
-- Start your mongo daemon `mongod` in a separate terminal tab
 - Install `nodemon` globally (if you don't already have it installed) with `npm i -g nodemon`
 - Run your application in its own terminal tab with `nodemon`
+- If You are using windows than start your mongodb shell
+
 - Navigate to `localhost:3000` in your browser
 
 *Note: If you're working from c9 then see below:
